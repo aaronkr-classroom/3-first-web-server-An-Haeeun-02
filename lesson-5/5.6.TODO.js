@@ -7,12 +7,47 @@
  */
 
 // 요청에 따른 라우트의 매핑 정의
-const routeRespMap;
+const routeRespMap = {
+    "/": "<h1>Home PAge</h1><p>Welcom to my page!</p>",
+    "/about": "<h1>Home PAge</h1><p>Welcom to my page!</p>",
+    "/info": "<h1>Home PAge</h1><p>Welcom to my page!</p>",
+    "/contact": "<h1>Home PAge</h1><p>Welcom to my page!</p>",
+    "/": "<h1>Home PAge</h1><p>Welcom to my page!</p>",
+    
+
+};
 
 // listing5.5.js에서 (p. 96)
-const port;
+const port = 3000,
+    http = require('http'),
+    httpStatus = require('http-status-codes'),
+    app = http.createServer();
 
-// 요청 라우트가 정의된 맵에 있는지 체크
+;
+
+
+
+app.on("request", (req, res) => {
+    res.writeHead(httpStatus.OK, {
+        "Content-Type": "text/html",
+    })
+
+    // 요청 라우트가 정의된 맵에 있는지 체크
+    if(routeRespMap[req.url]){ // "/about"
+        setTimeout(() =>{
+            res.end(routeRespMap[req.url]);            
+        }, 2000);
+    } else{
+        setTimeout(() => {
+            res.end("<h1>404</h1><p>Where are you?</p>");            
+        }, 1000);
+    }
+})
+
+if(process.env.NODE_ENV !== 'test'){
+    app.listen(port);
+    console.log(`Server at: http://localhost:${port}`);
+}
 
 // <<< 나머진 서버 코드 입력 하십시오 >>>
 
